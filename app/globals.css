@@ -1,0 +1,270 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fafaf9;
+  --foreground: #080503;
+  --card: #ffffff;
+  --card-foreground: #080503;
+  --popover: #ffffff;
+  --popover-foreground: #080503;
+  --primary: #080503;
+  --primary-foreground: #fafaf9;
+  --secondary: #f3f2ee;
+  --secondary-foreground: #080503;
+  --muted: #ecebe7;
+  --muted-foreground: #5e534a;
+  --accent: #e7e4dd;
+  --accent-foreground: #080503;
+  --destructive: #e40014;
+  --destructive-foreground: #e40014;
+  --border: #dad7d0;
+  --input: #e7e4dd;
+  --ring: #080503;
+  --chart-1: #080503;
+  --chart-2: #433830;
+  --chart-3: #7b6f66;
+  --chart-4: #a89c92;
+  --chart-5: #d3ccc7;
+  --radius: 0.25rem;
+  --sidebar: #fafafa;
+  --sidebar-foreground: #0a0a0a;
+  --sidebar-primary: #171717;
+  --sidebar-primary-foreground: #fafafa;
+  --sidebar-accent: #f5f5f5;
+  --sidebar-accent-foreground: #171717;
+  --sidebar-border: #e5e5e5;
+  --sidebar-ring: #a1a1a1;
+}
+
+@theme inline {
+  --font-sans: var(--font-instrument), "Instrument Sans", system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), "JetBrains Mono", monospace;
+  --font-display: var(--font-instrument-serif), "Instrument Serif", Georgia, serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .text-stroke {
+    -webkit-text-stroke: 1.5px currentColor;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .marquee {
+    animation: 30s linear infinite marquee;
+  }
+
+  .marquee-reverse {
+    animation: 25s linear infinite marquee-reverse;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translate(0);
+    }
+    to {
+      transform: translate(-50%);
+    }
+  }
+
+  @keyframes marquee-reverse {
+    0% {
+      transform: translate(-50%);
+    }
+    to {
+      transform: translate(0);
+    }
+  }
+
+  .line-reveal {
+    clip-path: inset(0 100% 0 0);
+    animation: 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards line-reveal;
+  }
+
+  @keyframes line-reveal {
+    to {
+      clip-path: inset(0);
+    }
+  }
+
+  .hover-lift {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+  }
+
+  .letter-spin {
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: inline-block;
+  }
+
+  .letter-spin:hover {
+    transform: rotateY(360deg);
+  }
+
+  .animate-char-in {
+    opacity: 0;
+    filter: blur(40px);
+    animation: 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards char-in;
+    transform: translateY(100%);
+  }
+
+  @keyframes char-in {
+    0% {
+      opacity: 0;
+      filter: blur(40px);
+      transform: translateY(100%);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+  }
+
+  .noise-overlay {
+    position: relative;
+  }
+
+  .noise-overlay::after {
+    content: "";
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    position: absolute;
+    inset: 0;
+  }
+
+  .border-sketch {
+    background:
+      linear-gradient(var(--background), var(--background)) padding-box,
+      linear-gradient(
+          135deg,
+          var(--foreground) 25%,
+          transparent 25%,
+          transparent 50%,
+          var(--foreground) 50%,
+          var(--foreground) 75%,
+          transparent 75%
+        )
+        border-box;
+    background-size:
+      100% 100%,
+      8px 8px;
+    border: 1px solid transparent;
+  }
+}
+
+@keyframes progress {
+  0% {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.code-line-reveal {
+  opacity: 0;
+  animation: 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards lineReveal;
+  transform: translate(-8px);
+}
+
+@keyframes lineReveal {
+  to {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+.code-char-reveal {
+  opacity: 0;
+  filter: blur(8px);
+  animation: 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards charReveal;
+}
+
+@keyframes charReveal {
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.dev-code-line {
+  opacity: 0;
+  transform: translateX(-8px);
+  animation: devLineReveal 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes devLineReveal {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.dev-code-char {
+  opacity: 0;
+  filter: blur(8px);
+  animation: devCharReveal 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes devCharReveal {
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
